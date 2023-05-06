@@ -7,5 +7,5 @@ import java.io.Serializable;
 @Entity(name = "orders")
 public class Order implements Serializable {
     private @Id Integer id;
-
+	//hihi
 }
