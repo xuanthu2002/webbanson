@@ -1,9 +1,16 @@
 package com.educative.ecommerce.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity(name = "detail_order")
 public class DetailOrder implements Serializable {
     @Id
@@ -20,5 +27,6 @@ public class DetailOrder implements Serializable {
 
     private int quantity;
 
+    @Column(name = "total_amount")
     private BigInteger totalAmount;
 }

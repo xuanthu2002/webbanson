@@ -69,14 +69,14 @@ CREATE TABLE `categories` (
 -- Đang đổ dữ liệu cho bảng `categories`
 --
 
-INSERT INTO `categories` (`id`, `category_name`, `description`, `image_url`, `product_id`) VALUES
-(23, '3CE', '123', '456', NULL),
-(24, 'Black Rouge', '123', '456', NULL),
-(25, 'Maybelline', '123', '456', NULL),
-(26, 'Gilaa', '123', '456', NULL),
-(27, 'Lemonade', '123', '456', NULL),
-(28, 'BBIA', '123', '456', NULL),
-(29, 'MAC', '123', '456', NULL);
+INSERT INTO `categories` (`id`, `category_name`, `description`, `image_url`) VALUES
+(23, '3CE', '123', '456'),
+(24, 'Black Rouge', '123', '456'),
+(25, 'Maybelline', '123', '456'),
+(26, 'Gilaa', '123', '456'),
+(27, 'Lemonade', '123', '456'),
+(28, 'BBIA', '123', '456'),
+(29, 'MAC', '123', '456');
 
 -- --------------------------------------------------------
 
