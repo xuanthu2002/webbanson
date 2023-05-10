@@ -18,12 +18,14 @@ import java.util.Optional;
 
 @Service
 public class CartService {
-
-    @Autowired
     ProductService productService;
+    CartRepository cartRepository;
 
     @Autowired
-    CartRepository cartRepository;
+    public CartService(ProductService productService, CartRepository cartRepository) {
+        this.productService = productService;
+        this.cartRepository = cartRepository;
+    }
 
     public void addToCart(AddToCartDto addToCartDto, User user) {
 
@@ -60,7 +62,7 @@ public class CartService {
 
         Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
 
-        if (optionalCart.isPresent()) {
+        if (!optionalCart.isPresent()) {
             throw new CustomException("cart item id is invalid: " + cartItemId);
         }
 
@@ -78,7 +80,7 @@ public class CartService {
 
         Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
 
-        if (optionalCart.isPresent()) {
+        if (!optionalCart.isPresent()) {
             throw new CustomException("cart item id is invalid: " + cartItemId);
         }
 
@@ -91,5 +93,9 @@ public class CartService {
         cart.setQuantity(quantity);
 
         cartRepository.save(cart);
+    }
+
+    public void checkoutCart(User user) {
+        cartRepository.deleteCartsByUser(user);
     }
 }

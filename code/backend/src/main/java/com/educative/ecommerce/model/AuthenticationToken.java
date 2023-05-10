@@ -12,13 +12,14 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tokens")
 @Data
-public class AuthenticationToken {
+public class AuthenticationToken implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

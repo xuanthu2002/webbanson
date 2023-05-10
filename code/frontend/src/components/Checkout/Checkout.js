@@ -4,7 +4,6 @@ import {
   Flex,
   FormLabel,
   Input,
-  ListItem,
   Tab,
   TabList,
   TabPanel,
@@ -22,14 +21,35 @@ import {
 import Layout from '../Layout/Layout.js';
 import format from '../../format/currencyFormat.js';
 import ProductItem from './ProductItem.js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getProductsFromCartThunk } from '../../redux/cartSlice.js';
+import useNotification from '../../hook/useNotification.js';
+import { checkoutCartThunk } from '../../redux/cartSlice.js';
+
 
 const Checkout = () => {
   const products = useSelector(productInCartSelectors);
   const price = useSelector(totalPriceSelector);
   const dispatch = useDispatch();
+  const { sendNotification } = useNotification();
   const token = useSelector(tokenSelector);
+  const [recipientName, setRecipientName] = useState(null);
+  const [recipientPhoneNumber, setRecipientPhoneNumber] = useState(null);
+  const [shippingAddress, setShippingAddress] = useState(null);
+
+  const checkoutHandle = () => {
+    if (recipientName && recipientPhoneNumber && shippingAddress) {
+      console.log(recipientName, recipientPhoneNumber, shippingAddress, token);
+      const orderDto = { 
+        user: null, 
+        recipientName, 
+        recipientPhoneNumber, 
+        shippingAddress, 
+        paymentMethod: "COD" 
+      };
+      sendNotification(dispatch(checkoutCartThunk({token, orderDto})));
+    }
+  };
 
   useEffect(() => {
     if (token) dispatch(getProductsFromCartThunk(token));
@@ -48,36 +68,44 @@ const Checkout = () => {
           >
             <TabList>
               <Tab>Cash on delivery - COD</Tab>
-              <Tab isDisabled>Credit card/Debit card</Tab>
-              <Tab isDisabled>Momo</Tab>
+              <Tab>VN Pay</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
                 <Box>
-                  <FormLabel htmlFor='nameOfCustomer'>
+                  <FormLabel htmlFor='recipientName'>
                     Name of customer
                   </FormLabel>
                   <Input
-                    id='nameOfCustomer'
+                    id='recipientName'
                     placeholder='Type your name'
                     required
+                    onChange={
+                      (e) => setRecipientName(e.target.value)
+                    }
                   />
                 </Box>
                 <Box marginTop='12px'>
-                  <FormLabel htmlFor='telephone'>Telephone</FormLabel>
+                  <FormLabel htmlFor='recipientPhoneNumber'>Telephone</FormLabel>
                   <Input
-                    id='telephone'
+                    id='recipientPhoneNumber'
                     placeholder='Type your telephone'
                     type={'number'}
                     required
+                    onChange={
+                      (e) => setRecipientPhoneNumber(e.target.value)
+                    }
                   />
                 </Box>
                 <Box marginTop='12px'>
-                  <FormLabel htmlFor='address'>Address</FormLabel>
+                  <FormLabel htmlFor='shippingAddress'>Address</FormLabel>
                   <Input
-                    id='address'
+                    id='shippingAddress'
                     placeholder='Type your address'
                     required
+                    onChange={
+                      (e) => setShippingAddress(e.target.value)
+                    }
                   />
                 </Box>
                 <Flex marginTop='12px' gap={'12px'}>
@@ -88,7 +116,10 @@ const Checkout = () => {
                   </Box>
                   <Box flex={1}>
                     <Link to='/success'>
-                      <Button colorScheme='blue' width='100%'>
+                      <Button 
+                      colorScheme='blue' 
+                      width='100%'
+                      onClick={checkoutHandle}>
                         Purchase
                       </Button>
                     </Link>
