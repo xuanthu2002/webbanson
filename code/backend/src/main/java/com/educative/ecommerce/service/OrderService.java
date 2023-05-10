@@ -111,4 +111,8 @@ public class OrderService {
         cartService.checkoutCart(orderDto.getUser());
         return order;
     }
+
+    public Order getOrderById(Integer id) {
+        return orderRepository.findById(id).get();
+    }
 }

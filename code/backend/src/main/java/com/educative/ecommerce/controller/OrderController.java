@@ -3,6 +3,7 @@ package com.educative.ecommerce.controller;
 import java.util.List;
 
 import com.educative.ecommerce.dto.order.OrderDto;
+import com.educative.ecommerce.model.Order;
 import com.educative.ecommerce.model.User;
 import com.educative.ecommerce.service.AuthenticationService;
 import com.educative.ecommerce.service.UserService;
@@ -42,12 +43,17 @@ public class OrderController {
         return new ResponseEntity<>(stripeResponse, HttpStatus.OK);
     }
 
-    @PostMapping("checkoutCart/{token}")
-    public void checkoutCart(@PathVariable("token") String token,
+    @PostMapping("checkoutCart")
+    public void checkoutCart(@RequestParam("token") String token,
                              @RequestBody OrderDto orderDto) {
         User user = authenticationService.getUser(token);
         orderDto.setUser(user);
         orderService.createOrder(orderDto);
+    }
+
+    @GetMapping("get/{id}")
+    public Order getOrderById(@PathVariable("id") Integer id) {
+        return orderService.getOrderById(id);
     }
 
 }
