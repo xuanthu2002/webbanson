@@ -1,27 +1,41 @@
-import { Box, Button, Flex, Image, Input, Td, Tr } from '@chakra-ui/react';
+import { Button, Flex, Td, Tr } from '@chakra-ui/react';
 import format from '../../../format/currencyFormat.js';
 import moment from 'moment/moment.js';
+import { Link } from 'react-router-dom';
+import useNotification from '../../../hook/useNotification.js';
+import orderApi from '../../../api/orderApi.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { tokenSelector } from '../../../redux/selectors.js';
+import { cancelOrderThunk, doneOrderThunk } from '../../../redux/orderSlice.js';
+import { useEffect, useState } from 'react';
 
-const OrderItem = ({ id, createTime, totalAmount, paymentMethod, status, detailOrders }) => {
+
+const OrderItem = ({ id, createTime, totalAmount, paymentMethod, status }) => {
+
+    const token = useSelector(tokenSelector);
+    const { sendNotification } = useNotification();
+    const dispatch = useDispatch();
+
+    const cancelOrderHandle = () => {
+        sendNotification(
+            dispatch(cancelOrderThunk({ token, id }))
+        );
+    }
+
+    const doneOrderHandle = () => {
+        sendNotification(
+            dispatch(doneOrderThunk({ token, id }))
+        );
+    }
+
     return (
-        // <div>
-        //     <h2>Order ID: {id}</h2>
-        //     <p>Time order: {createTime}</p>
-        //     <p>Total Amount: {totalAmount}</p>
-        //     <p>Payment Method: {paymentMethod}</p>
-        //     <p>Status: {status}</p>
-        //     <ul>
-        //         {detailOrders.map((detailOrder) => (
-        //             <li key={detailOrder.id}>
-        //                 {detailOrder.product.name} - {detailOrder.product.price} - {detailOrder.quantity}
-        //             </li>
-        //         ))}
-        //     </ul>
-        // </div>
+
         <Tr>
             <Td>
                 <Flex gap={'12px'} align='center'>
-                    {id}
+                    <Link to={`/order/` + id}>
+                        {id}
+                    </Link>
                 </Flex>
             </Td>
             <Td>
@@ -36,6 +50,14 @@ const OrderItem = ({ id, createTime, totalAmount, paymentMethod, status, detailO
             <Td>
                 {status}
             </Td>
+            <Td>
+                <Button onClick={cancelOrderHandle}>Hủy</Button>
+            </Td>
+            {localStorage.getItem("role") === "admin" && (
+                <Td>
+                    <Button onClick={doneOrderHandle}>Hoàn thành</Button>
+                </Td>
+            )}
         </Tr>
     );
 };

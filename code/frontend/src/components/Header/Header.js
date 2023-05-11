@@ -96,6 +96,16 @@ const Header = () => {
                 <Button>Add new product</Button>
               </Link>
             )}
+            {localStorage.getItem("role") === "admin" && (
+              <Link to="/admin/listUser">
+                <Button>List User</Button>
+              </Link>
+            )}
+            {localStorage.getItem("role") === "admin" && (
+              <Link to="/admin/listOrder">
+                <Button>List Order</Button>
+              </Link>
+            )}
             <Button onClick={logoutHandler}>Logout</Button>
           </Flex>
         )}
