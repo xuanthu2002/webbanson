@@ -3,11 +3,9 @@ import format from '../../../format/currencyFormat.js';
 import moment from 'moment/moment.js';
 import { Link } from 'react-router-dom';
 import useNotification from '../../../hook/useNotification.js';
-import orderApi from '../../../api/orderApi.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenSelector } from '../../../redux/selectors.js';
 import { cancelOrderThunk, doneOrderThunk } from '../../../redux/orderSlice.js';
-import { useEffect, useState } from 'react';
 
 
 const OrderItem = ({ id, createTime, totalAmount, paymentMethod, status }) => {
@@ -51,11 +49,11 @@ const OrderItem = ({ id, createTime, totalAmount, paymentMethod, status }) => {
                 {status}
             </Td>
             <Td>
-                <Button onClick={cancelOrderHandle}>Hủy</Button>
+                <Button onClick={cancelOrderHandle} disabled={status==='CANCELED' || status==='DONE'}>Hủy</Button>
             </Td>
             {localStorage.getItem("role") === "admin" && (
                 <Td>
-                    <Button onClick={doneOrderHandle}>Hoàn thành</Button>
+                    <Button onClick={doneOrderHandle} disabled={status==='CANCELED' || status==='DONE'}>Hoàn thành</Button>
                 </Td>
             )}
         </Tr>

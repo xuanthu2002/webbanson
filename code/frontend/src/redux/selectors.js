@@ -11,7 +11,6 @@ export const filterBySelectors = (state) => state.filter.filterBy;
 export const priceMinSelectors = (state) => state.filter.priceMin;
 export const priceMaxSelectors = (state) => state.filter.priceMax;
 export const tokenSelector = (state) => state.auth.token;
-export const orderSelector = (state) => state.orders.orders;
 
 export const productsRemain = createSelector(
   productSelectors,

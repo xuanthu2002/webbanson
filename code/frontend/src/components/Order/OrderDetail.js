@@ -28,7 +28,6 @@ const OrderDetail = () => {
         const response = await orderApi.getById(orderId)
             .then(response => {
                 setOrderDetail(response.data);
-                console.log(response.data);
             });
     }
 

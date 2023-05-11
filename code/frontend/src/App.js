@@ -69,7 +69,7 @@ function App() {
             localStorage.getItem('role') === 'admin' ? (
               <User />
             ) : (
-              <Navigate to='/listUser' />
+              <Navigate to='/' />
             )
           }
         />
@@ -79,7 +79,7 @@ function App() {
             localStorage.getItem('role') === 'admin' ? (
               <ListOrder />
             ) : (
-              <Navigate to='/listOrder' />
+              <Navigate to='/' />
             )
           }
         />
