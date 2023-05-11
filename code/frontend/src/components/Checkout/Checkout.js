@@ -24,7 +24,7 @@ import ProductItem from './ProductItem.js';
 import { useEffect, useState } from 'react';
 import { getProductsFromCartThunk } from '../../redux/cartSlice.js';
 import useNotification from '../../hook/useNotification.js';
-import { checkoutCartThunk } from '../../redux/cartSlice.js';
+import { checkoutCartThunk } from '../../redux/checkoutSlice.js';
 
 
 const Checkout = () => {
@@ -40,14 +40,15 @@ const Checkout = () => {
   const checkoutHandle = () => {
     if (recipientName && recipientPhoneNumber && shippingAddress) {
       console.log(recipientName, recipientPhoneNumber, shippingAddress, token);
-      const orderDto = { 
-        user: null, 
-        recipientName, 
-        recipientPhoneNumber, 
-        shippingAddress, 
-        paymentMethod: "COD" 
+      const orderDto = {
+        user: null,
+        recipientName,
+        recipientPhoneNumber,
+        shippingAddress,
+        paymentMethod: "COD"
       };
-      sendNotification(dispatch(checkoutCartThunk({token, orderDto})));
+      sendNotification(dispatch(checkoutCartThunk({ token, orderDto })));
+      window.location.reload()
     }
   };
 
@@ -68,7 +69,6 @@ const Checkout = () => {
           >
             <TabList>
               <Tab>Cash on delivery - COD</Tab>
-              <Tab>VN Pay</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
@@ -115,22 +115,16 @@ const Checkout = () => {
                     </Link>
                   </Box>
                   <Box flex={1}>
-                    <Link to='/success'>
-                      <Button 
-                      colorScheme='blue' 
+                    {/* <Link to='/success'> */}
+                    <Button
+                      colorScheme='blue'
                       width='100%'
                       onClick={checkoutHandle}>
-                        Purchase
-                      </Button>
-                    </Link>
+                      Purchase
+                    </Button>
+                    {/* </Link> */}
                   </Box>
                 </Flex>
-              </TabPanel>
-              <TabPanel>
-                <p>two!</p>
-              </TabPanel>
-              <TabPanel>
-                <p>three!</p>
               </TabPanel>
             </TabPanels>
           </Tabs>

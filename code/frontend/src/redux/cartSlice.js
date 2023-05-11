@@ -57,21 +57,6 @@ export const updateQuantityThunk = createAsyncThunk(
   }
 );
 
-export const checkoutCartThunk = createAsyncThunk(
-  'cart/checkoutThunk',
-  async ({token, orderDto}, {rejectWithValue}) => {
-    console.log(orderDto);
-    try {
-      const {data} = await axiosPro.post(
-        `/order/checkoutCart?token=${token}`, orderDto
-      );
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  }
-)
-
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
@@ -125,17 +110,6 @@ const cartSlice = createSlice({
       state.err = false;
     },
     [updateQuantityThunk.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.err = true;
-    },
-    [checkoutCartThunk.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [checkoutCartThunk.fulfilled]: (state, action) => {
-      state.isLoading = true;
-      state.err = false;
-    },
-    [checkoutCartThunk.rejected]: (state, action) => {
       state.isLoading = false;
       state.err = true;
     },

@@ -11,6 +11,7 @@ import Checkout from './components/Checkout/Checkout.js';
 import Signup from './components/Authentication/Signup/Signup.js';
 import Login from './components/Authentication/Login/Login.js';
 import Admin from './components/Admin/Admin.js';
+import Order from './components/Order/Order.js';
 import { useSelector } from 'react-redux';
 import { isLoginSelector } from './redux/selectors.js';
 import CreateNewProduct from './components/Admin/CreateNewProduct.js';
@@ -27,6 +28,7 @@ function App() {
         <Route path='/product/:productId' element={<Product />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/checkout' element={<Checkout />} />
+        <Route path='/orders' element={<Order />} />
         <Route
           path='/signup'
           element={isLogin ? <Navigate to='/' /> : <Signup />}
@@ -55,7 +57,7 @@ function App() {
             )
           }
         />
-        <Route path='/success' element={<Success />} />
+        <Route path='/success' element={<Success/>}/>
       </Routes>
     </Router>
   );
