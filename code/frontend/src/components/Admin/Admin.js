@@ -15,7 +15,7 @@ const Admin = ({ product, upsertProductHandler }) => {
   );
   const [price, setPrice] = useState(product ? product.price : 0);
   const [categoryId, setCategoryId] = useState(
-    product ? product.category.id : 21
+    product ? product.category.id : 23
   );
 
   const categoryChangeHandler = (value) => {

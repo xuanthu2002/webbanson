@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Flex, Icon } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { BsCart3 } from 'react-icons/bs';
+import { BsCart3, BsListCheck } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getProductsFromCartThunk } from '../../redux/cartSlice.js';
@@ -84,6 +84,11 @@ const Header = () => {
                 >
                   {productsInCart.length}
                 </Flex>
+              </Box>
+            </Link>
+            <Link to='/orders'>
+              <Box style={{ position: 'relative' }}>
+                <Icon as={BsListCheck} fontSize='32px' />
               </Box>
             </Link>
             {localStorage.getItem('role') === 'admin' && (
