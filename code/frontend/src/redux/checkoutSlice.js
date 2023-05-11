@@ -4,7 +4,6 @@ import axiosPro from './axiosConfig.js';
 export const checkoutCartThunk = createAsyncThunk(
     'cart/checkoutThunk',
     async ({ token, orderDto }, { rejectWithValue }) => {
-        console.log(orderDto);
         try {
             const { data } = await axiosPro.post(
                 `/order/checkoutCart?token=${token}`, orderDto

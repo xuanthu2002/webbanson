@@ -17,6 +17,11 @@ import { isLoginSelector } from './redux/selectors.js';
 import CreateNewProduct from './components/Admin/CreateNewProduct.js';
 import UpdateProduct from './components/Admin/UpdateProduct.js';
 import Success from './components/Success/Success.js';
+import OrderDetail from './components/Order/OrderDetail.js';
+import User from './components/User/User.js';
+import ListOrder from './components/Admin/ListOrder.js';
+import orderApi from './api/orderApi.js';
+import { useEffect } from 'react';
 
 function App() {
   const isLogin = useSelector(isLoginSelector);
@@ -29,6 +34,7 @@ function App() {
         <Route path='/cart' element={<Cart />} />
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/orders' element={<Order />} />
+        <Route path='/order/:orderId' element={<OrderDetail />} />
         <Route
           path='/signup'
           element={isLogin ? <Navigate to='/' /> : <Signup />}
@@ -57,7 +63,27 @@ function App() {
             )
           }
         />
-        <Route path='/success' element={<Success/>}/>
+        <Route
+          path='/admin/listUser'
+          element={
+            localStorage.getItem('role') === 'admin' ? (
+              <User />
+            ) : (
+              <Navigate to='/listUser' />
+            )
+          }
+        />
+        <Route
+          path='/admin/listOrder'
+          element={
+            localStorage.getItem('role') === 'admin' ? (
+              <ListOrder />
+            ) : (
+              <Navigate to='/listOrder' />
+            )
+          }
+        />
+        <Route path='/success' element={<Success />} />
       </Routes>
     </Router>
   );

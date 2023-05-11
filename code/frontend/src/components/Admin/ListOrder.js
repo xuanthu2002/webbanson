@@ -12,17 +12,16 @@ import {
 import { useEffect, useState } from 'react';
 import Layout from '../Layout/Layout.js';
 import orderApi from '../../api/orderApi.js';
-import OrderItem from './OrderItem/OrderItem.js';
+import OrderItem from '../Order/OrderItem/OrderItem.js';
 import { tokenSelector } from '../../redux/selectors.js';
 import { useSelector } from 'react-redux';
 
 
-const Order = () => {
+const ListOrder = () => {
     const [orders, setOrders] = useState([]);
-    const token = useSelector(tokenSelector);
-
+    
     const getOrders = async () => {
-        const response = await orderApi.getAll(token)
+        const response = await orderApi.getAllOrder()
             .then(response => {
                 setOrders(response.data);
             })
@@ -86,4 +85,4 @@ const Order = () => {
     );
 };
 
-export default Order;
+export default ListOrder;

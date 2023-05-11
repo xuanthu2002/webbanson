@@ -27,7 +27,7 @@ const useNotification = () => {
       });
 
       setTimeout(() => {
-        if (res.payload.message.includes('created')) {
+        if (res.payload.message?.includes('created')) {
           return navigate('/login');
         }
         navigate('/');
