@@ -3,6 +3,7 @@ package com.educative.ecommerce.service;
 import com.educative.ecommerce.dto.cart.CartDto;
 import com.educative.ecommerce.dto.cart.CartItemDto;
 import com.educative.ecommerce.dto.order.OrderAddDto;
+import com.educative.ecommerce.dto.order.OrderDetailDto;
 import com.educative.ecommerce.dto.order.OrderDto;
 import com.educative.ecommerce.model.DetailOrder;
 import com.educative.ecommerce.model.Order;
@@ -15,6 +16,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -56,7 +58,7 @@ public class OrderService {
     }
 
     public List<OrderDto> getOrdersByUser(User user) {
-        List<Order> orders = (List<Order>) orderRepository.getOrdersByUser(user);
+        List<Order> orders = (List<Order>) orderRepository.getOrdersByUserOrderByCreateTimeDesc(user);
         List<OrderDto> orderDtoList = new ArrayList<>();
         for(Order order : orders) {
             orderDtoList.add(
@@ -64,14 +66,58 @@ public class OrderService {
                             order.getId(),
                             order.getTotalAmount(),
                             order.getCreateTime(),
-                            order.getDetailOrderList()
+                            order.getPaymentMethod(),
+                            order.getStatus()
                     )
             );
         }
         return orderDtoList;
     }
 
-    public Order getOrderById(Integer id) {
-        return orderRepository.findById(id).get();
+    public OrderDetailDto getDetailOrder(Integer id) {
+        Optional<Order> orderOptional = orderRepository.findById(id);
+        OrderDetailDto orderDetailDto = new OrderDetailDto();
+        if(orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+            orderDetailDto.setId(order.getId());
+            orderDetailDto.setCreateTime(order.getCreateTime());
+            orderDetailDto.setTotalAmount(order.getTotalAmount());
+            orderDetailDto.setPaymentMethod(order.getPaymentMethod());
+            orderDetailDto.setStatus(order.getStatus());
+            orderDetailDto.setDetailOrders(order.getDetailOrderList());
+            orderDetailDto.setRecipientName(order.getRecipientName());
+            orderDetailDto.setRecipientPhoneNumber(order.getRecipientPhoneNumber());
+            orderDetailDto.setShippingAddress(order.getShippingAddress());
+        }
+        return orderDetailDto;
+    }
+
+    public void cancelOrderById(Integer id) {
+        Order order = orderRepository.findById(id).get();
+        order.setStatus(Order.Status.CANCELED);
+        orderRepository.save(order);
+    }
+
+    public void doneOrderById(Integer id) {
+        Order order = orderRepository.findById(id).get();
+        order.setStatus(Order.Status.DONE);
+        orderRepository.save(order);
+    }
+
+    public List<OrderDto> getAllOrders() {
+        List<Order> orders = (List<Order>) orderRepository.findAllByOrderByCreateTimeDesc();
+        List<OrderDto> orderDtoList = new ArrayList<>();
+        for(Order order : orders) {
+            orderDtoList.add(
+                    new OrderDto(
+                            order.getId(),
+                            order.getTotalAmount(),
+                            order.getCreateTime(),
+                            order.getPaymentMethod(),
+                            order.getStatus()
+                    )
+            );
+        }
+        return orderDtoList;
     }
 }

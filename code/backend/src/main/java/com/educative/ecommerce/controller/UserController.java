@@ -1,16 +1,18 @@
 package com.educative.ecommerce.controller;
 
+import com.educative.ecommerce.dto.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.educative.ecommerce.dto.ResponseDto;
 import com.educative.ecommerce.dto.user.SignInDto;
 import com.educative.ecommerce.dto.user.SignInReponseDto;
 import com.educative.ecommerce.dto.user.SignupDto;
 import com.educative.ecommerce.service.UserService;
+
+import java.util.List;
 
 @RequestMapping("user")
 @RestController
@@ -29,4 +31,9 @@ public class UserController {
         return userService.signIn(signInDto);
     }
 
+    @GetMapping("/listUser")
+    public ResponseEntity<List<UserDto>> getUser() {
+        List<UserDto> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 }

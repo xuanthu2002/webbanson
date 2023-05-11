@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.educative.ecommerce.common.ApiResponse;
 import com.educative.ecommerce.dto.order.OrderAddDto;
+import com.educative.ecommerce.dto.order.OrderDetailDto;
 import com.educative.ecommerce.dto.order.OrderDto;
-import com.educative.ecommerce.model.Order;
 import com.educative.ecommerce.model.User;
 import com.educative.ecommerce.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,13 @@ public class OrderController {
         );
     }
 
+    @GetMapping("getAll")
+    public ResponseEntity<?> getAllOrderDto() {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                orderService.getAllOrders()
+        );
+    }
+
     @GetMapping("")
     public ResponseEntity<?> getOrders(@RequestParam("token") String token) {
         authenticationService.authenticate(token);
@@ -50,9 +57,28 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(orders);
     }
 
-    @GetMapping("get/{id}")
-    public Order getOrderById(@PathVariable("id") Integer id) {
-        return orderService.getOrderById(id);
+    @GetMapping("get")
+    public OrderDetailDto getOrderById(@RequestParam("id") Integer id) {
+        return orderService.getDetailOrder(id);
     }
 
+    @PutMapping("cancel")
+    public ResponseEntity<?> cancelOrder(@RequestParam("token") String token,
+                                         @RequestParam("id") Integer orderId) {
+        authenticationService.authenticate(token);
+        orderService.cancelOrderById(orderId);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ApiResponse(true, "cancel order successfully")
+        );
+    }
+
+    @PutMapping("done")
+    public ResponseEntity<?> doneOrder(@RequestParam("token") String token,
+                                         @RequestParam("id") Integer orderId) {
+        authenticationService.authenticate(token);
+        orderService.doneOrderById(orderId);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ApiResponse(true, "done order successfully")
+        );
+    }
 }

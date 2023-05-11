@@ -2,11 +2,14 @@ package com.educative.ecommerce.service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
 
+import com.educative.ecommerce.dto.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -98,5 +101,23 @@ public class UserService {
         return new SignInReponseDto("sucess", token.getToken(), user.getRole(), user.getFirstName(),
                 user.getLastName(), "Login successfully!");
 
+    }
+
+    public UserDto getUserDto(User user){
+        UserDto dto = new UserDto();
+        dto.setEmail(user.getEmail());
+        dto.setFirstName(user.getFirstName());
+        dto.setLastName(user.getLastName());
+        dto.setRole(user.getRole());
+        return dto;
+    }
+    public List<UserDto> getAllUsers() {
+        List<User> allUsers = userRepository.findAll();
+
+        List<UserDto> userDtos = new ArrayList<>();
+        for (User user : allUsers) {
+            userDtos.add(getUserDto(user));
+        }
+        return userDtos;
     }
 }
