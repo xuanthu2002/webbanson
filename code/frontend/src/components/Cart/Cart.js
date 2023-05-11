@@ -79,9 +79,10 @@ const Cart = () => {
               fontWeight='600'
               fontSize='20px'
             >
-              <Box>Total: {format.format(price)}</Box>
+              <Box marginTop='20px'>Total: {format.format(price)}</Box>
               <Link to='/checkout'>
-                <Button colorScheme='blue' w={'200px'}>
+                <Button colorScheme='blue' w={'200px'} marginTop='20px'
+                disabled={products.length < 1}>
                   Checkout
                 </Button>
               </Link>

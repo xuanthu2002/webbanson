@@ -39,7 +39,6 @@ const Checkout = () => {
 
   const checkoutHandle = () => {
     if (recipientName && recipientPhoneNumber && shippingAddress) {
-      console.log(recipientName, recipientPhoneNumber, shippingAddress, token);
       const orderDto = {
         user: null,
         recipientName,
@@ -48,7 +47,6 @@ const Checkout = () => {
         paymentMethod: "COD"
       };
       sendNotification(dispatch(checkoutCartThunk({ token, orderDto })));
-      window.location.reload()
     }
   };
 
@@ -60,9 +58,6 @@ const Checkout = () => {
     <Layout>
       <Flex bg='#fff' borderRadius='12px' p='24px' gap='24px'>
         <Box flex='1'>
-          <Box fontWeight='600' fontSize='20px'>
-            Which payment you want to purchase?
-          </Box>
           <Tabs
             marginTop='
         12px'
@@ -115,14 +110,12 @@ const Checkout = () => {
                     </Link>
                   </Box>
                   <Box flex={1}>
-                    {/* <Link to='/success'> */}
                     <Button
                       colorScheme='blue'
                       width='100%'
                       onClick={checkoutHandle}>
                       Purchase
                     </Button>
-                    {/* </Link> */}
                   </Box>
                 </Flex>
               </TabPanel>

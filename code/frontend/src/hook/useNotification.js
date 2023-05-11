@@ -30,7 +30,10 @@ const useNotification = () => {
         if (res.payload.message?.includes('created')) {
           return navigate('/login');
         }
-        navigate('/');
+        else if (res.payload.message?.includes('checkout')) {
+          return navigate('/success');
+        }
+        // navigate('/');
       }, 1500);
     }).catch((err) => {
       sendToast({

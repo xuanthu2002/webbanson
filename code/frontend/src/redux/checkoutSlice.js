@@ -19,8 +19,6 @@ const checkoutSlice = createSlice({
     name: 'checkout',
     initialState: {
         isLoading: false,
-        products: [],
-        total: 0,
         err: false,
     },
     reducers: {},
