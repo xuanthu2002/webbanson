@@ -1,73 +1,8 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 03, 2023 lúc 04:30 PM
--- Phiên bản máy phục vụ: 10.4.27-MariaDB
--- Phiên bản PHP: 8.2.0
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
 -- Cơ sở dữ liệu: `ecommerce`
---
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `cart`
---
-
-CREATE TABLE `cart` (
-  `id` int(11) NOT NULL,
-  `created_date` datetime DEFAULT NULL,
-  `quantity` int(11) NOT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `cart`
---
-
-INSERT INTO `cart` (`id`, `created_date`, `quantity`, `product_id`, `user_id`) VALUES
-(16, '2022-11-09 17:14:51', 1, 1, 9),
-(18, '2022-11-09 21:40:30', 1, 2, 9),
-(19, '2022-11-09 21:40:35', 1, 6, 9),
-(21, '2022-11-09 22:54:46', 1, 1, 9),
-(27, '2022-11-13 21:30:37', 5, 4, 30),
-(28, '2022-11-13 21:31:34', 5, 8, 30),
-(29, '2022-11-13 21:32:04', 5, 1, 32),
-(30, '2022-11-13 21:32:08', 8, 2, 32),
-(31, '1970-01-01 00:00:00', 2, 1, 37),
-(32, '2023-04-11 21:35:37', 2, 1, 37);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `categories`
---
-
-CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
-  `category_name` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
-  `product_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `categories`
---
 
 INSERT INTO `categories` (`id`, `category_name`, `description`, `image_url`) VALUES
 (23, '3CE', '123', '456'),
@@ -78,24 +13,7 @@ INSERT INTO `categories` (`id`, `category_name`, `description`, `image_url`) VAL
 (28, 'BBIA', '123', '456'),
 (29, 'MAC', '123', '456');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `products`
---
-
-CREATE TABLE `products` (
-  `id` int(11) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `imageURL` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `price` double NOT NULL,
-  `category_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
 -- Đang đổ dữ liệu cho bảng `products`
---
 
 INSERT INTO `products` (`id`, `description`, `imageURL`, `name`, `price`, `category_id`) VALUES
 (1, 'Son kem BBIA Last Velvet Lip Tint với chất son đậm, bám chặt như nam châm. Chỉ cần thoa 1 lớp là màu sẽ lên rõ và sống động Các phân tử nhỏ liên kết chặt chẽ như phấn giúp che đi những khuyết điểm cho bờ môi tươi tắn và khỏe mạnh. Độ bám màu khủng, không ', 'https://product.hstatic.net/200000551679/product/bbia-last-velvet-lip-tint-15_da72807ad1364b5aa9c9a815cc13bc6e_1024x1024.jpg', 'BBIA Son kem Last Velvet Lip Tint', 128000, 28),
@@ -171,159 +89,14 @@ INSERT INTO `products` (`id`, `description`, `imageURL`, `name`, `price`, `categ
 (95, 'Mới đây, thương hiệu LEMONADE của “phù thủy makeup” Quách Ánh đã cho tung ra thị trường bộ sưu tập giới hạn mới nhất của dòng son môi đình đám Perfect Couple Lip, với sự hợp tác của ca sĩ Đông Nhi sau hơn nửa năm ấp ủ và tìm hiểu nghiên cứu, đó chính là L', 'https://media.hasaki.vn/catalog/product/s/o/son-kem-li-2-dau-lemonade-x-dong-nhi-mau-cam-dao-02-couple-01_img_358x358_843626_fit_center.jpg', 'Son Kem Lì 2 Đầu Lemonade Màu Cam Đào 02 Couple 7.5ml Perfect Couple Lip Love Collection', 279000, 27),
 (96, 'Son Kem Lì Nhẹ Môi LEMONADE Want It Got It Lipcream là dòng sản phẩm mới nhất thuộc Collection “Want It Got It” vừa được ra mắt từ thương hiệu LEMONADE của “phù thủy makeup” Quách Ánh, với chất son mỏng mịn, siêu nhẹ trên môi, cho bạn một bờ môi mịn lì nh', 'https://media.hasaki.vn/catalog/product/s/o/son-kem-li-nhe-moi-lemonade-mau-cam-do-dat-i-want-04-5g-1_img_358x358_843626_fit_center.jpg', 'Son Kem Lì Nhẹ Môi LEMONADE Màu Cam Đỏ Đất I Want 04 5g Want It Got It Lipcream', 169000, 27);
 
--- --------------------------------------------------------
 
---
--- Cấu trúc bảng cho bảng `tokens`
---
-
-CREATE TABLE `tokens` (
-  `id` int(11) NOT NULL,
-  `created_date` datetime DEFAULT NULL,
-  `token` varchar(255) DEFAULT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
 -- Đang đổ dữ liệu cho bảng `tokens`
---
 
 INSERT INTO `tokens` (`id`, `created_date`, `token`, `user_id`) VALUES
-(9, '2022-10-28 08:23:40', 'fb32b650-fd27-4dc3-b8e2-9bee7f5a66f3', 9),
-(30, '2022-11-06 16:27:54', 'cbe9f4f5-982b-44d6-ae60-2178769f617f', 30),
-(37, '2023-04-05 11:46:45', '578ed37c-617e-42ce-9018-8b93be5086c6', 37),
-(38, '2023-04-19 15:51:35', 'ac09020d-8769-4a23-829c-7a6bd2a0674f', 38),
-(39, '2023-04-23 17:29:25', '2490b51d-adad-4aa0-8745-c854b98958be', 39);
+(9, '2022-10-28 08:23:40', 'fb32b650-fd27-4dc3-b8e2-9bee7f5a66f3', 9)
 
--- --------------------------------------------------------
 
---
--- Cấu trúc bảng cho bảng `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `first_name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `role` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
 -- Đang đổ dữ liệu cho bảng `users`
---
 
 INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`, `role`) VALUES
-(9, 'admin@gmail.com', 'admin', 'admin', '21232F297A57A5A743894A0E4A801FC3', 'admin'),
-(30, 'tuantm@gmail.com', 'tuan', 'tm', '25F9E794323B453885F5181F1B624D0B', 'user'),
-(37, 'cong@gmail.com', 'cong', 'quach', '00C66AAF5F2C3F49946F15C1AD2EA0D3', NULL),
-(38, 'blink.leggo2002@gmail.com', 'cong', 'cong', '3D4633C39D2223B99599F5339CA6FBB8', NULL),
-(39, 'cong', 'string', 'string', 'B45CFFE084DD3D20D928BEE85E7B0F21', NULL);
-
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `cart`
---
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK3weixb4hpcmv5xc73lxe4762i` (`product_id`),
-  ADD KEY `FKa10mmlavm34n720q8rnc4ufc8` (`user_id`);
-
---
--- Chỉ mục cho bảng `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FKefhwceqqnvcl3iw72iv2r2w4o` (`product_id`);
-
---
--- Chỉ mục cho bảng `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `category_id` (`category_id`);
-
---
--- Chỉ mục cho bảng `tokens`
---
-ALTER TABLE `tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FKck21ekaqng736h8ohx6l9xrgv` (`user_id`);
-
---
--- Chỉ mục cho bảng `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT cho các bảng đã đổ
---
-
---
--- AUTO_INCREMENT cho bảng `cart`
---
-ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-
---
--- AUTO_INCREMENT cho bảng `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT cho bảng `products`
---
-ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
-
---
--- AUTO_INCREMENT cho bảng `tokens`
---
-ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
---
--- AUTO_INCREMENT cho bảng `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
---
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `cart`
---
-ALTER TABLE `cart`
-  ADD CONSTRAINT `FK3weixb4hpcmv5xc73lxe4762i` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `FKa10mmlavm34n720q8rnc4ufc8` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Các ràng buộc cho bảng `categories`
---
-ALTER TABLE `categories`
-  ADD CONSTRAINT `FKefhwceqqnvcl3iw72iv2r2w4o` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
---
--- Các ràng buộc cho bảng `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
-
---
--- Các ràng buộc cho bảng `tokens`
---
-ALTER TABLE `tokens`
-  ADD CONSTRAINT `FKck21ekaqng736h8ohx6l9xrgv` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+(9, 'admin@gmail.com', 'admin', 'admin', '21232F297A57A5A743894A0E4A801FC3', 'admin')
